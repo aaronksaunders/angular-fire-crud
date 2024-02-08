@@ -1,0 +1,72 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> Blank </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Blank</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <!-- button for adding -->
+  <!-- <ion-button (click)="handleAddThing()">Add Thing</ion-button> -->
+  <ion-button id="open-modal" expand="block">Add Thing</ion-button>
+
+  <!-- UI Displaying List -->
+  <div id="container">
+    @for (thing of displayThings$ | async; track $index) {
+    <ion-card (click)="cardClicked(thing?.id)">
+      <ion-card-header>
+        <ion-card-title>{{thing.name}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>{{thing.description}}</p>
+        <p>{{thing.created.toDate().toDateString()}}</p>
+        <p>{{thing.updated.toDate().toTimeString()}}</p>
+        <p>{{thing?.id}}</p>
+      </ion-card-content>
+    </ion-card>
+    }
+
+    <!-- ADD THING MODAL -->
+    <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-buttons slot="start">
+              <ion-button (click)="cancel()">Cancel</ion-button>
+            </ion-buttons>
+            <ion-title>Create New Thing</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="confirm()" [strong]="true"
+                >Confirm</ion-button
+              >
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+          <ion-item>
+            <ion-input
+              label="Enter Thing Name"
+              labelPlacement="stacked"
+              type="text"
+              placeholder="Name"
+              [(ngModel)]="name"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input
+              label="Enter Thing Description"
+              labelPlacement="stacked"
+              type="text"
+              placeholder="Description"
+              [(ngModel)]="description"
+            ></ion-input>
+          </ion-item>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+  </div>
+</ion-content>

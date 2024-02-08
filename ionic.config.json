@@ -1,0 +1,7 @@
+{
+  "name": "angular-fire-crud",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
